@@ -14,7 +14,3 @@ class BookUseCases(val bookPorts: BookPorts) {
         return this.bookPorts.getAll().sortedBy { it.title }
     }
 }
-
-fun bookUseCasesExists(bookUseCases: BookUseCases?): Boolean {
-    return  bookUseCases != null
-}

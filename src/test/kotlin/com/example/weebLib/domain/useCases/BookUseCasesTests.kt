@@ -15,6 +15,7 @@ import io.mockk.InternalPlatformDsl.toArray
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.junit5.MockKExtension
 import io.mockk.mockk
+import io.mockk.verify
 import net.jqwik.api.Property
 import net.jqwik.api.constraints.StringLength
 import net.jqwik.api.constraints.AlphaChars
@@ -73,6 +74,20 @@ class BookUseCasesTests {
 
         // Assert
         assertThat(listBook).isEqualTo(sortedListBook)
+    }
+
+    @Test
+    fun `create a book does not raise exception`() {
+        // Arrange
+        val book = Book("ctitre1", "author1")
+
+        every { mock.createBook(book) } answers { nothing }
+
+        mock.createBook(book)
+
+        verify { mock.createBook(book) }
+        // Assert
+        assertThat(mock).isNotNull()
     }
 
     @Property
